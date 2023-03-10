@@ -136,20 +136,45 @@ def calculate_percentage_satisfied(data):
     print("Percentage satisfied successfully calculated")
     return percent_satisfied
 
+
+def select_club():
+    """
+    Collect user club selection input
+    """
+    while True:
+        print("Please select a club.\n 1. Dublin Toastmasters\n 2. London Toastmasters\n")
+        selected_club_option = input("Please enter a number here: \n")
+        try:
+            if int(selected_club_option) == 1:
+                dublin_club = Club('Dublin', 22, 'regular', 4, dublin_data)
+                print(dublin_club.club_description())
+                selected_club = dublin_worksheet
+                return selected_club
+            elif int(selected_club_option) == 2:
+                london_club = Club('London', 15, 'business', 2, london_data)
+                print(london_club.club_description())
+                selected_club = london_worksheet
+                return selected_club
+            elif int(selected_club_option) != 1 and int(selected_club) != 2:
+                raise ValueError
+        except ValueError() as e:
+            print("Please enter 1 or 2.")
+
+
 def main():
     """
     Main function called when user clicks 'Run Program'.
     """
-    dublin_club = Club('Dublin', 22, 'regular', 4, dublin_data)
-    print(dublin_club.club_description())
-    pprint(dublin_data)
-    ages_list = get_age_data(dublin_worksheet)
+    print("Welcome to Toastmasters Club Survey Analysis\n")
+    club = select_club()
+    
+    ages_list = get_age_data(club)
     calculate_average(ages_list)
-    employment_data = get_employment_data(dublin_worksheet)
+    employment_data = get_employment_data(club)
     calculate_percentage_employed(employment_data)
-    goal_data = get_goal_data(dublin_worksheet)
+    goal_data = get_goal_data(club)
     calculate_percentage_each_goal(goal_data)
-    satisfied = get_satifaction_data(dublin_worksheet)
+    satisfied = get_satifaction_data(club)
     calculate_percentage_satisfied(satisfied)
 
 
