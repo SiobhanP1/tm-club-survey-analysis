@@ -149,7 +149,7 @@ def select_club():
                 print(london_club.club_description())
                 selected_club = london_worksheet
                 return selected_club
-            elif int(selected_club_option) != 1 and int(selected_club) != 2:
+            elif int(selected_club_option) != 1 and int(selected_club_option) != 2:
                 raise ValueError(
                     f"You entered {selected_club_option}. Please enter 1 or 2."
                 )
@@ -169,7 +169,7 @@ def select_calculation(club):
     """
     while True:
         try:
-            print("Please choose an option.\n 1. Calculate average age of respondents.\n 2. Calculate percentage employed.\n 3. Calculate percentage having each main goal.\n 4. Calculate percentage satisfied with club experience.\n 5. Return to club menu.\n 6. Exit program.")
+            print("Please choose an option.\n 1. Calculate average age of respondents.\n 2. Calculate percentage employed.\n 3. Calculate percentage having each main goal.\n 4. Calculate percentage satisfied with club experience.\n 5. Return to club menu.\n 6. Exit program.\n")
             calc_selection = input("Please enter a number from 1 to 6 here: \n")
 
             if int(calc_selection) == 1:
@@ -187,7 +187,8 @@ def select_calculation(club):
             elif int(calc_selection) == 5:
                 main()
             elif int(calc_selection) == 6:
-                print("Thank you for using this program. Click 'Run Program' to run it again.")
+                print("Thank you for using this program. Click 'Run Program' to run it again.\n")
+                break
             elif int(calc_selection) < 1 or int(calc_selection) > 6:
                 raise ValueError(
                     f"You entered {calc_selection}. Please enter an integer from 1 to 6."
