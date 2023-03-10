@@ -15,8 +15,8 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('DublinTMclubSurveyData')
 
-worksheet = SHEET.get_worksheet(0)
-dublin_data = worksheet.get_all_values()
+dublin_worksheet = SHEET.get_worksheet(0)
+dublin_data = dublin_worksheet.get_all_values()
 
 
 class Club:
@@ -37,6 +37,14 @@ class Club:
         return f"{self.club_name} Toastmasters Club is a {self.club_type} club with {self.meetings_per_month} meetings a month. There are {self.num_members} members."
 
 
+def get_age_data(data):
+    """
+    Get age data from worksheet 
+    """
+    age_data = data.col_values(2)[1:]
+    print(age_data)
+
+
 def main():
     """
     Main function called when user clicks 'Run Program'.
@@ -44,6 +52,7 @@ def main():
     dublin_club = Club('Dublin', 22, 'regular', 4, dublin_data)
     print(dublin_club.club_description())
     pprint(dublin_data)
+    get_age_data(dublin_worksheet)
 
 
 main()
