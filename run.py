@@ -1,4 +1,3 @@
-from pprint import pprint
 import gspread
 from google.oauth2.service_account import Credentials
 
@@ -23,7 +22,8 @@ class Club:
     """
     Toastmaster club class
     """
-    def __init__(self, club_name, num_members, club_type, meetings_per_month, data):
+    def __init__(self, club_name, num_members, club_type, 
+                 meetings_per_month, data):
         self.club_name = club_name
         self.num_members = num_members
         self.club_type = club_type
@@ -34,7 +34,7 @@ class Club:
         """
         Returns description of instance of club class.
         """
-        return f"{self.club_name} Toastmasters Club is a {self.club_type} club with {self.meetings_per_month} meetings a month. There are {self.num_members} members."
+        return f"{self.club_name} Toastmasters Club is a {self.club_type} club with {self.meetings_per_month} meetings a month. There are {self.num_members} members.\n"
 
 
 def get_age_data(data):
@@ -44,7 +44,6 @@ def get_age_data(data):
     print("Getting age data...")
     age_data = data.col_values(2)[1:]
     int_age_data = [int(age) for age in age_data]
-    print(int_age_data)
     return int_age_data
 
 
@@ -54,8 +53,7 @@ def calculate_average(data):
     """
     print("Calculating average...")
     average = round(sum(data) / len(data))
-    print(f"Average: {average}")
-    print("Average successfully calculated")
+    print(f"Average age: {average}\n")
     return average
 
 
@@ -65,7 +63,6 @@ def get_employment_data(data):
     """
     print("Getting employment data...")
     employment_data = data.col_values(3)[1:]
-    print(employment_data)
     return employment_data
 
 
@@ -73,7 +70,7 @@ def calculate_percentage_employed(data):
     """
     Calculate percentage employed, retired, student.
     """
-    print("Calculating percentage employed...")
+    print("Calculating percentage employed...\n")
     employed = data.count('employed')
     retired = data.count('retired')
     student = data.count('student')
@@ -82,8 +79,7 @@ def calculate_percentage_employed(data):
     percent_student = 100 * (student / len(data))
     print(f"Percentage employed: {percent_employed}%")
     print(f"Percentage students: {percent_student}%")
-    print(f"Percentage retired: {percent_retired}%")
-    print("Employment percentage successfully calculated")
+    print(f"Percentage retired: {percent_retired}%\n")
     return f"{percent_employed}% are employed, {percent_student}% are students and {percent_retired}% are retired." 
 
 
@@ -93,7 +89,6 @@ def get_goal_data(data):
     """
     print("Getting main goal data...")
     goal_data = data.col_values(4)[1:]
-    print(goal_data)
     return goal_data
 
 
@@ -101,7 +96,7 @@ def calculate_percentage_each_goal(data):
     """
     Calculate percentage for each main goal.
     """
-    print("Calculating main goal percentages...")
+    print("Calculating main goal percentages...\n")
     confidence = data.count('self-confidence')
     social = data.count('social')
     speaking = data.count('public speaking')
@@ -110,8 +105,7 @@ def calculate_percentage_each_goal(data):
     percent_speaking = 100 * (speaking / len(data))
     print(f"Self-confidence percentage: {percent_confidence}%")
     print(f"Social percentage: {percent_social}%")
-    print(f"Public speaking percentage: {percent_speaking}%")
-    print("Main goal percentages successfully calculated")
+    print(f"Public speaking percentage: {percent_speaking}%\n")
     return f"{percent_speaking}% chose public speaking, {percent_confidence}% chose self-confidence and {percent_social}% chose social." 
 
 
@@ -121,7 +115,6 @@ def get_satifaction_data(data):
     """
     print("Getting satisfaction data...")
     satisfied_data = data.col_values(5)[1:]
-    print(satisfied_data)
     return satisfied_data
 
 
@@ -129,11 +122,10 @@ def calculate_percentage_satisfied(data):
     """
     Calculate percentage satisfied.
     """
-    print("Calculating percentage satisfied...")
+    print("Calculating percentage satisfied...\n")
     satisfied = data.count('yes')
     percent_satisfied = 100 * (satisfied / len(data))
-    print(f"Percentage satisfied: {percent_satisfied}%")
-    print("Percentage satisfied successfully calculated")
+    print(f"Percentage satisfied: {percent_satisfied}%\n")
     return percent_satisfied
 
 
@@ -156,9 +148,52 @@ def select_club():
                 selected_club = london_worksheet
                 return selected_club
             elif int(selected_club_option) != 1 and int(selected_club) != 2:
-                raise ValueError
-        except ValueError() as e:
-            print("Please enter 1 or 2.")
+                raise ValueError(
+                    f"You entered {selected_club_option}. Please enter 1 or 2."
+                )
+            else:
+                raise TypeError(
+                    f"You entered {selected_club_option}. Please enter a number."
+                )
+        except ValueError as e:
+            print(f"\nInvalid option. {e}\n")
+        except TypeError as e:
+            print(f"\nInvalid option. {e}\n")
+
+
+def select_calculation(club):
+    """
+    Collect and validate user's calculation selection.
+    """
+    while True:
+        try:
+            print("Please choose an option.\n 1. Calculate average age of respondents.\n 2. Calculate percentage employed.\n 3. Calculate percentage having each main goal.\n 4. Calculate percentage satisfied with club experience.\n 5. Return to club menu.\n 6. Exit program.")
+            calc_selection = input("Please enter a number from 1 to 6 here: \n")
+
+            if int(calc_selection) == 1:
+                ages_list = get_age_data(club)
+                calculate_average(ages_list)
+            elif int(calc_selection) == 2:
+                employment_data = get_employment_data(club)
+                calculate_percentage_employed(employment_data)
+            elif int(calc_selection) == 3:
+                goal_data = get_goal_data(club)
+                calculate_percentage_each_goal(goal_data)
+            elif int(calc_selection) == 4:
+                satisfied = get_satifaction_data(club)
+                calculate_percentage_satisfied(satisfied)
+            elif int(calc_selection) < 1 or int(calc_selection) > 6:
+                raise ValueError(
+                    f"You entered {calc_selection}. Please enter an integer from 1 to 6."
+                )
+            else:
+                raise TypeError(
+                    f"You entered {calc_selection}. Please enter a number from 1 to 6."
+                )
+        except ValueError as e:
+            print(f"\nInvalid option. {e}\n")
+        except TypeError as e:
+            print(f"\nInvalid option. {e}\n")
 
 
 def main():
@@ -166,16 +201,8 @@ def main():
     Main function called when user clicks 'Run Program'.
     """
     print("Welcome to Toastmasters Club Survey Analysis\n")
-    club = select_club()
-    
-    ages_list = get_age_data(club)
-    calculate_average(ages_list)
-    employment_data = get_employment_data(club)
-    calculate_percentage_employed(employment_data)
-    goal_data = get_goal_data(club)
-    calculate_percentage_each_goal(goal_data)
-    satisfied = get_satifaction_data(club)
-    calculate_percentage_satisfied(satisfied)
+    club_selection = select_club()
+    select_calculation(club_selection)
 
 
 main()
