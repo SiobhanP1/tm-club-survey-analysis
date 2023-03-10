@@ -87,6 +87,16 @@ def calculate_percentage_employed(data):
     return percent_employed 
 
 
+def get_goal_data(data):
+    """
+    Get respondent main goal data from worksheet
+    """
+    print("Getting main goal data...")
+    goal_data = data.col_values(4)[1:]
+    print(goal_data)
+    return goal_data
+
+
 def main():
     """
     Main function called when user clicks 'Run Program'.
@@ -98,6 +108,7 @@ def main():
     calculate_average(ages_list)
     employment_data = get_employment_data(dublin_worksheet)
     calculate_percentage_employed(employment_data)
+    goal_data = get_goal_data(dublin_worksheet)
 
 
 main()
