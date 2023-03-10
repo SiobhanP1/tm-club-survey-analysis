@@ -84,7 +84,7 @@ def calculate_percentage_employed(data):
     print(f"Percentage students: {percent_student}")
     print(f"Percentage retired: {percent_retired}")
     print("Employment percentage successfully calculated")
-    return percent_employed 
+    return f"{percent_employed}% are employed, {percent_student}% are students and {percent_retired}% are retired." 
 
 
 def get_goal_data(data):
@@ -96,6 +96,23 @@ def get_goal_data(data):
     print(goal_data)
     return goal_data
 
+
+def calculate_percentage_each_goal(data):
+    """
+    Calculate percentage for each main goal.
+    """
+    print("Calculating main goal percentages...")
+    confidence = data.count('self-confidence')
+    social = data.count('social')
+    speaking = data.count('public-speaking')
+    percent_confidence = 100 * (confidence / len(data))
+    percent_social = 100 * (social / len(data))
+    percent_speaking = 100 * (speaking / len(data))
+    print(f"Self-confidence percentage: {percent_confidence}")
+    print(f"Social percentage: {percent_social}")
+    print(f"Public speaking percentage: {percent_speaking}")
+    print("Main goal percentages successfully calculated")
+    return f"{percent_speaking}% chose public speaking, {percent_confidence}% chose self-confidence and {percent_social}% chose social." 
 
 def main():
     """
@@ -109,6 +126,7 @@ def main():
     employment_data = get_employment_data(dublin_worksheet)
     calculate_percentage_employed(employment_data)
     goal_data = get_goal_data(dublin_worksheet)
+    calculate_percentage_each_goal(goal_data)
 
 
 main()
