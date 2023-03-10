@@ -39,23 +39,34 @@ class Club:
 
 def get_age_data(data):
     """
-    Get age data from worksheet 
+    Get age data from worksheet in form of list of integers.
     """
     print("Getting age data...")
     age_data = data.col_values(2)[1:]
     int_age_data = [int(age) for age in age_data]
     print(int_age_data)
-    calculate_average(int_age_data)
+    return int_age_data
 
 
 def calculate_average(data):
     """
-    Calculate average of list of integers
+    Calculate average of list of integers.
     """
     print("Calculating average...")
     average = round(sum(data) / len(data))
     print(f"Average: {average}")
     print("Average successfully calculated")
+    return average
+
+
+def get_employment_data(data):
+    """
+    Get employment data from worksheet
+    """
+    print("Getting employment data...")
+    employment_data = data.col_values(3)[1:]
+    print(employment_data)
+    return employment_data
 
 
 def main():
@@ -65,7 +76,9 @@ def main():
     dublin_club = Club('Dublin', 22, 'regular', 4, dublin_data)
     print(dublin_club.club_description())
     pprint(dublin_data)
-    get_age_data(dublin_worksheet)
+    ages_list = get_age_data(dublin_worksheet)
+    calculate_average(ages_list)
+    get_employment_data(dublin_worksheet)
 
 
 main()
