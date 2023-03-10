@@ -114,6 +114,17 @@ def calculate_percentage_each_goal(data):
     print("Main goal percentages successfully calculated")
     return f"{percent_speaking}% chose public speaking, {percent_confidence}% chose self-confidence and {percent_social}% chose social." 
 
+
+def get_satifaction_data(data):
+    """
+    Get satisfaction with club experience data from worksheet
+    """
+    print("Getting satisfaction data...")
+    satisfied_data = data.col_values(5)[1:]
+    print(satisfied_data)
+    return satisfied_data
+
+
 def main():
     """
     Main function called when user clicks 'Run Program'.
@@ -127,6 +138,7 @@ def main():
     calculate_percentage_employed(employment_data)
     goal_data = get_goal_data(dublin_worksheet)
     calculate_percentage_each_goal(goal_data)
+    get_satifaction_data(dublin_worksheet)
 
 
 main()
