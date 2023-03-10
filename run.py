@@ -80,9 +80,9 @@ def calculate_percentage_employed(data):
     percent_employed = 100 * (employed / len(data))
     percent_retired = 100 * (retired / len(data))
     percent_student = 100 * (student / len(data))
-    print(f"Percentage employed: {percent_employed}")
-    print(f"Percentage students: {percent_student}")
-    print(f"Percentage retired: {percent_retired}")
+    print(f"Percentage employed: {percent_employed}%")
+    print(f"Percentage students: {percent_student}%")
+    print(f"Percentage retired: {percent_retired}%")
     print("Employment percentage successfully calculated")
     return f"{percent_employed}% are employed, {percent_student}% are students and {percent_retired}% are retired." 
 
@@ -104,13 +104,13 @@ def calculate_percentage_each_goal(data):
     print("Calculating main goal percentages...")
     confidence = data.count('self-confidence')
     social = data.count('social')
-    speaking = data.count('public-speaking')
+    speaking = data.count('public speaking')
     percent_confidence = 100 * (confidence / len(data))
     percent_social = 100 * (social / len(data))
     percent_speaking = 100 * (speaking / len(data))
-    print(f"Self-confidence percentage: {percent_confidence}")
-    print(f"Social percentage: {percent_social}")
-    print(f"Public speaking percentage: {percent_speaking}")
+    print(f"Self-confidence percentage: {percent_confidence}%")
+    print(f"Social percentage: {percent_social}%")
+    print(f"Public speaking percentage: {percent_speaking}%")
     print("Main goal percentages successfully calculated")
     return f"{percent_speaking}% chose public speaking, {percent_confidence}% chose self-confidence and {percent_social}% chose social." 
 
@@ -125,6 +125,17 @@ def get_satifaction_data(data):
     return satisfied_data
 
 
+def calculate_percentage_satisfied(data):
+    """
+    Calculate percentage satisfied.
+    """
+    print("Calculating percentage satisfied...")
+    satisfied = data.count('yes')
+    percent_satisfied = 100 * (satisfied / len(data))
+    print(f"Percentage satisfied: {percent_satisfied}%")
+    print("Percentage satisfied successfully calculated")
+    return percent_satisfied
+
 def main():
     """
     Main function called when user clicks 'Run Program'.
@@ -138,7 +149,8 @@ def main():
     calculate_percentage_employed(employment_data)
     goal_data = get_goal_data(dublin_worksheet)
     calculate_percentage_each_goal(goal_data)
-    get_satifaction_data(dublin_worksheet)
+    satisfied = get_satifaction_data(dublin_worksheet)
+    calculate_percentage_satisfied(satisfied)
 
 
 main()
