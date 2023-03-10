@@ -69,6 +69,24 @@ def get_employment_data(data):
     return employment_data
 
 
+def calculate_percentage_employed(data):
+    """
+    Calculate percentage employed, retired, student.
+    """
+    print("Calculating percentage employed...")
+    employed = data.count('employed')
+    retired = data.count('retired')
+    student = data.count('student')
+    percent_employed = 100 * (employed / len(data))
+    percent_retired = 100 * (retired / len(data))
+    percent_student = 100 * (student / len(data))
+    print(f"Percentage employed: {percent_employed}")
+    print(f"Percentage students: {percent_student}")
+    print(f"Percentage retired: {percent_retired}")
+    print("Employment percentage successfully calculated")
+    return percent_employed 
+
+
 def main():
     """
     Main function called when user clicks 'Run Program'.
@@ -78,7 +96,8 @@ def main():
     pprint(dublin_data)
     ages_list = get_age_data(dublin_worksheet)
     calculate_average(ages_list)
-    get_employment_data(dublin_worksheet)
+    employment_data = get_employment_data(dublin_worksheet)
+    calculate_percentage_employed(employment_data)
 
 
 main()
