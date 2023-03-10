@@ -139,6 +139,7 @@ def select_club():
         try:
             print("\nPlease select a club.\n 1. Dublin Toastmasters\n 2. London Toastmasters\n")
             selected_club_option = input("Please enter a number here: \n")
+
             if int(selected_club_option) == 1:
                 dublin_club = Club('Dublin', 22, 'regular', 4, dublin_data)
                 print(dublin_club.club_description())
@@ -187,7 +188,6 @@ def select_calculation(club):
             elif int(calc_selection) == 5:
                 main()
             elif int(calc_selection) == 6:
-                print("Thank you for using this program. Click 'Run Program' to run it again.\n")
                 break
             elif int(calc_selection) < 1 or int(calc_selection) > 6:
                 raise ValueError(
@@ -202,6 +202,8 @@ def select_calculation(club):
         except TypeError as e:
             print(f"\nInvalid option. {e}\n")
 
+    print("Thank you for using this program. Click 'Run Program' to run it again.\n")
+
 
 def main():
     """
@@ -211,5 +213,5 @@ def main():
     select_calculation(club_selection)
 
 
-print("Welcome to Toastmasters Club Survey Analysis\n")
+print("Welcome to Toastmasters Club Survey Analysis")
 main()
