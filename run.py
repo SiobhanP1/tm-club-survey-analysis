@@ -41,8 +41,21 @@ def get_age_data(data):
     """
     Get age data from worksheet 
     """
+    print("Getting age data...")
     age_data = data.col_values(2)[1:]
-    print(age_data)
+    int_age_data = [int(age) for age in age_data]
+    print(int_age_data)
+    calculate_average(int_age_data)
+
+
+def calculate_average(data):
+    """
+    Calculate average of list of integers
+    """
+    print("Calculating average...")
+    average = round(sum(data) / len(data))
+    print(f"Average: {average}")
+    print("Average successfully calculated")
 
 
 def main():
