@@ -12,10 +12,12 @@ CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
-SHEET = GSPREAD_CLIENT.open('DublinTMclubSurveyData')
+SHEET = GSPREAD_CLIENT.open('TMclubSurveyData')
 
 dublin_worksheet = SHEET.get_worksheet(0)
+london_worksheet = SHEET.get_worksheet(1)
 dublin_data = dublin_worksheet.get_all_values()
+london_data = london_worksheet.get_all_values()
 
 
 class Club:
@@ -103,9 +105,9 @@ def calculate_percentage_each_goal(data):
     percent_confidence = 100 * (confidence / len(data))
     percent_social = 100 * (social / len(data))
     percent_speaking = 100 * (speaking / len(data))
-    print(f"Self-confidence percentage: {percent_confidence}%")
-    print(f"Social percentage: {percent_social}%")
-    print(f"Public speaking percentage: {percent_speaking}%\n")
+    print(f"Self-confidence: {percent_confidence}%")
+    print(f"Social: {percent_social}%")
+    print(f"Public speaking: {percent_speaking}%\n")
     return f"{percent_speaking}% chose public speaking, {percent_confidence}% chose self-confidence and {percent_social}% chose social." 
 
 
@@ -134,9 +136,9 @@ def select_club():
     Collect user club selection input
     """
     while True:
-        print("Please select a club.\n 1. Dublin Toastmasters\n 2. London Toastmasters\n")
-        selected_club_option = input("Please enter a number here: \n")
         try:
+            print("\nPlease select a club.\n 1. Dublin Toastmasters\n 2. London Toastmasters\n")
+            selected_club_option = input("Please enter a number here: \n")
             if int(selected_club_option) == 1:
                 dublin_club = Club('Dublin', 22, 'regular', 4, dublin_data)
                 print(dublin_club.club_description())
@@ -182,6 +184,10 @@ def select_calculation(club):
             elif int(calc_selection) == 4:
                 satisfied = get_satifaction_data(club)
                 calculate_percentage_satisfied(satisfied)
+            elif int(calc_selection) == 5:
+                main()
+            elif int(calc_selection) == 6:
+                print("Thank you for using this program. Click 'Run Program' to run it again.")
             elif int(calc_selection) < 1 or int(calc_selection) > 6:
                 raise ValueError(
                     f"You entered {calc_selection}. Please enter an integer from 1 to 6."
@@ -200,9 +206,9 @@ def main():
     """
     Main function called when user clicks 'Run Program'.
     """
-    print("Welcome to Toastmasters Club Survey Analysis\n")
     club_selection = select_club()
     select_calculation(club_selection)
 
 
+print("Welcome to Toastmasters Club Survey Analysis\n")
 main()
