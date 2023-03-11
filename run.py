@@ -214,5 +214,6 @@ def main():
     select_calculation(club_selection)
 
 
-print("Welcome to Toastmasters Club Survey Analysis")
-main()
+if __name__ == "__main__":
+    print("Welcome to Toastmasters Club Survey Analysis")
+    main()
