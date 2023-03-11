@@ -203,6 +203,7 @@ def select_calculation(club):
             print(f"\nInvalid option. {e}\n")
 
     print("Thank you for using this program. Click 'Run Program' to run it again.\n")
+    return False
 
 
 def main():
