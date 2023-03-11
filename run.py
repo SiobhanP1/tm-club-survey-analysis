@@ -46,7 +46,6 @@ class Club:
         self.data = data
         self.worksheet = worksheet
 
-
     def club_description(self):
         """
         This method creates a string description of any instance of the Club 
@@ -57,8 +56,9 @@ class Club:
 
         It returns this description as a string.
         """
-        return f"{self.club_name} Toastmasters Club is a {self.club_type} club with {self.meetings_per_month} meetings a month. There are {self.num_members} members.\n"
-
+        return f"{self.club_name} Toastmasters Club is a {self.club_type}"
+        f"club with {self.meetings_per_month} meetings a month. There are" 
+        f"{self.num_members} members."
 
     def get_age_data(self):
         """
@@ -76,7 +76,6 @@ class Club:
         int_age_data = [int(age) for age in age_data]
         return int_age_data
     
-
     def get_employment_data(self):
         """
         Gets employment data from a club's survey results worksheet.
@@ -91,10 +90,10 @@ class Club:
         employment_data = self.worksheet.col_values(3)[1:]
         return employment_data
 
-
     def get_goal_data(self):
         """
-        Gets respondents' main goal data from a club's survey results worksheet.
+        Gets respondents' main goal data from survey results worksheet.
+
         Parameters
         data: The survey data from a club's survey results worksheet.
         
@@ -104,7 +103,6 @@ class Club:
         print("Getting main goal data...")
         goal_data = self.worksheet.col_values(4)[1:]
         return goal_data
-
 
     def get_satifaction_data(self):
         """
@@ -163,7 +161,8 @@ def calculate_percentage_employed(data):
     print(f"Percentage employed: {percent_employed}%")
     print(f"Percentage students: {percent_student}%")
     print(f"Percentage retired: {percent_retired}%\n")
-    return f"{percent_employed}% are employed, {percent_student}% are students and {percent_retired}% are retired." 
+    return f"{percent_employed}% are employed, {percent_student}%"
+    f" are students and {percent_retired}% are retired." 
 
 
 def calculate_percentage_each_goal(data):
@@ -191,7 +190,9 @@ def calculate_percentage_each_goal(data):
     print(f"Self-confidence: {percent_confidence}%")
     print(f"Social: {percent_social}%")
     print(f"Public speaking: {percent_speaking}%\n")
-    return f"{percent_speaking}% chose public speaking, {percent_confidence}% chose self-confidence and {percent_social}% chose social." 
+    return f"{percent_speaking}% chose public speaking, "
+    f"{percent_confidence}% chose self-confidence and "
+    f"{percent_social}% chose social." 
 
 
 def calculate_percentage_satisfied(data):
@@ -248,8 +249,8 @@ def print_calc_menu():
 
 def select_club():
     """
-    This function calls the print_club_menu function, then collects and validates 
-    user input for selecting a club option. 
+    This function calls the print_club_menu function, then collects and 
+    validates user input for selecting a club option.
 
     Parameters
     This function does not take any parameters.
@@ -260,17 +261,15 @@ def select_club():
     while True:
         try:
             print_club_menu()
-            selected_club_option = input("Please enter a number here: \n")
-            if int(selected_club_option) == 1 or int(selected_club_option) == 2:
-                return int(selected_club_option)
+            selected_option = input("Please enter a number here: \n")
+            if int(selected_option) == 1 or int(selected_option) == 2:
+                return int(selected_option)
             else:
                 raise ValueError(
-                    f"You entered {selected_club_option}. Please enter 1 or 2."
+                    f"You entered {selected_option}. Please enter 1 or 2."
                 )
         except ValueError as e:
-            print(f"\nInvalid option. {e}\n")
-        except TypeError as e:
-            print(f"\nInvalid option. {e}\n")
+            print(f"\n{e}\n")
 
 
 def create_club_instance(selected_club_option):
@@ -312,17 +311,16 @@ def select_calculation():
     while True:
         try:
             print_calc_menu()
-            calc_selection = input("Please enter a number from 1 to 6 here: \n")
+            calc_selection = input("Please enter a number from 1 to 6: \n")
             if int(calc_selection) in [1, 2, 3, 4, 5, 6]:
                 return int(calc_selection)
             else:
                 raise ValueError(
-                    f"You entered {calc_selection}. Please enter an integer from 1 to 6."
+                    f"You entered {calc_selection}. Please enter an integer "
+                    "from 1 to 6."
                 )
         except ValueError as e:
-            print(f"\nInvalid option. {e}\n")
-        except TypeError as e:
-            print(f"\nInvalid option. {e}\n")
+            print(f"\n{e}\n")
 
 
 def run_calculation(calc_number, worksheet, club):
@@ -344,10 +342,10 @@ def run_calculation(calc_number, worksheet, club):
         employment_data = club.get_employment_data()
         calculate_percentage_employed(employment_data)
     elif int(calc_number) == 3:
-        goal_data = get_goal_data(worksheet)
+        goal_data = club.get_goal_data()
         calculate_percentage_each_goal(goal_data)
     elif int(calc_number) == 4:
-        satisfied = get_satifaction_data(worksheet)
+        satisfied = club.get_satifaction_data()
         calculate_percentage_satisfied(satisfied)
     elif int(calc_number) == 5:
         main()
