@@ -22,14 +22,14 @@ london_data = london_worksheet.get_all_values()
 
 class Club:
     """
-    Club class: Defines parameters and methods used with instances of the Club 
+    Club class: Defines parameters and methods used with instances of the Club
     class. Each instance is a different club.
 
     Methods:
     club_description: Returns a description of the club including its
     name, number of members, type and number of meetings per month.
     """
-    def __init__(self, club_name, num_members, club_type, 
+    def __init__(self, club_name, num_members, club_type,
                  meetings_per_month, data, worksheet):
         """
         Class Parameters:
@@ -48,26 +48,26 @@ class Club:
 
     def club_description(self):
         """
-        This method creates a string description of any instance of the Club 
+        This method creates a string description of any instance of the Club
         class.
 
-        The description includes the club name, type, number of members and 
+        The description includes the club name, type, number of members and
         numbers of meetings per month.
 
         It returns this description as a string.
         """
         return f"{self.club_name} Toastmasters Club is a {self.club_type}"
-        f"club with {self.meetings_per_month} meetings a month. There are" 
+        f"club with {self.meetings_per_month} meetings a month. There are"
         f"{self.num_members} members."
 
     def get_age_data(self):
         """
-        This method gets the age data from a club's survey result 
+        This method gets the age data from a club's survey result
         worksheet.
-            
+
         Parameters
         data: The survey data from a club's survey results worksheet.
-            
+
         Returns
         It returns the ages as a list of integers.
         """
@@ -75,14 +75,14 @@ class Club:
         age_data = self.worksheet.col_values(2)[1:]
         int_age_data = [int(age) for age in age_data]
         return int_age_data
-    
+
     def get_employment_data(self):
         """
         Gets employment data from a club's survey results worksheet.
-        
+
         Parameters
         data: The survey data from a club's survey results worksheet.
-        
+
         Returns
         Employment data as a list of strings.
         """
@@ -96,7 +96,7 @@ class Club:
 
         Parameters
         data: The survey data from a club's survey results worksheet.
-        
+
         Returns
         The main goal data as a list of strings.
         """
@@ -106,13 +106,13 @@ class Club:
 
     def get_satifaction_data(self):
         """
-        Gets satisfaction with club experience data from a club's 
-        survey results worksheet. Respondents were given two options to 
-        choose from - 'yes' and 'no'. 
-        
+        Gets satisfaction with club experience data from a club's
+        survey results worksheet. Respondents were given two options to
+        choose from - 'yes' and 'no'.
+
         Parameters
         data: The survey data from a club's survey results worksheet.
-        
+
         Returns
         The satisfaction data as a list of strings.
         """
@@ -139,9 +139,9 @@ def calculate_average(ages):
 
 def calculate_percentage_employed(data):
     """
-    Calculates the percentage of members who are employed, retired 
-    or students, by counting the number of times each option was 
-    selected. Respondents were given three options to choose from - 
+    Calculates the percentage of members who are employed, retired
+    or students, by counting the number of times each option was
+    selected. Respondents were given three options to choose from -
     'employed', 'retired' or 'student'.
 
     Parameters
@@ -167,17 +167,17 @@ def calculate_percentage_employed(data):
 
 def calculate_percentage_each_goal(data):
     """
-    Calculates the percentage of respondents who selected 
-    each of the main goal options by counting the number of times 
+    Calculates the percentage of respondents who selected
+    each of the main goal options by counting the number of times
     each option was selected. Respondents were given three
-    options to choose from - 'self-confidence', 'social' and 'public 
+    options to choose from - 'self-confidence', 'social' and 'public
     speaking'.
 
     Parameters
     data: The survey data from a club's survey results worksheet.
 
     Returns
-    The percentage who chose public speaking, the percentage who 
+    The percentage who chose public speaking, the percentage who
     chose self-confidence and the percentage who chose social.
     """
     print("Calculating main goal percentages...\n")
@@ -241,7 +241,7 @@ def print_calc_menu():
     print("Please choose an option.")
     print("1. Calculate average age of respondents.")
     print("2. Calculate percentage employed.")
-    print("3. Calculate percentage having each main goal.") 
+    print("3. Calculate percentage having each main goal.")
     print("4. Calculate percentage satisfied with club experience.")
     print("5. Return to club menu.")
     print("6. Exit program.\n")
@@ -249,7 +249,7 @@ def print_calc_menu():
 
 def select_club():
     """
-    This function calls the print_club_menu function, then collects and 
+    This function calls the print_club_menu function, then collects and
     validates user input for selecting a club option.
 
     Parameters
@@ -274,7 +274,7 @@ def select_club():
 
 def create_club_instance(selected_club_option):
     """
-    Creates an instance of the Club class for the club selected by 
+    Creates an instance of the Club class for the club selected by
     the user.
 
     Parameters
@@ -299,7 +299,7 @@ def create_club_instance(selected_club_option):
 
 def select_calculation():
     """
-    Calls the print_calc_menu function, then collects and validates user 
+    Calls the print_calc_menu function, then collects and validates user
     input when the user selects a calculation option.
 
     Parameters
@@ -356,7 +356,7 @@ def run_calculation(calc_number, worksheet, club):
 
 def main():
     """
-    Main function called when user clicks 'Run Program' and on initial 
+    Main function called when user clicks 'Run Program' and on initial
     loading of program.
     """
     club_number = select_club()
@@ -378,4 +378,3 @@ london_club = Club('London', 15, 'business', 2, london_data, london_worksheet)
 if __name__ == "__main__":
     print("Welcome to Toastmasters Club Survey Analysis")
     main()
-
