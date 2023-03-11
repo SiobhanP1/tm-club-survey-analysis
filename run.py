@@ -22,36 +22,69 @@ london_data = london_worksheet.get_all_values()
 
 class Club:
     """
-    Toastmaster club class
+    Club class: Defines parameters and methods used with instances of the Club 
+    class. Each instance is a different club.
+
+    Methods:
+    club_description: Returns a description of the club including its
+    name, number of members, type and number of meetings per month.
     """
     def __init__(self, club_name, num_members, club_type, 
                  meetings_per_month, data):
+        """
+        Class Parameters:
+        club_name: The name of the club
+        num_members: The current number of members in the club
+        club_type: The club type. Clubs can be 'regular' or 'business'.
+        meetings_per_month: The number of club meetings every month
+        data: Survey input values from that club's survey result spreadsheet
+        """
         self.club_name = club_name
         self.num_members = num_members
         self.club_type = club_type
         self.meetings_per_month = meetings_per_month
         self.data = data
 
+
     def club_description(self):
         """
-        Returns description of instance of club class.
+        This method creates a string description of any instance of the Club 
+        class.
+
+        The description includes the club name, type, number of members and 
+        numbers of meetings per month.
+
+        It returns this description as a string.
         """
         return f"{self.club_name} Toastmasters Club is a {self.club_type} club with {self.meetings_per_month} meetings a month. There are {self.num_members} members.\n"
 
 
 def get_age_data(data):
-    """
-    Get age data from worksheet in form of list of integers.
-    """
-    print("Getting age data...")
-    age_data = data.col_values(2)[1:]
-    int_age_data = [int(age) for age in age_data]
-    return int_age_data
+        """
+        This method gets the age data from a club's survey result 
+        worksheet.
+        
+        Parameters
+        data: The survey data from a club's survey results worksheet.
+
+        Returns
+        It returns the ages as a list of integers.
+        """
+        print("Getting age data...")
+        age_data = data.col_values(2)[1:]
+        int_age_data = [int(age) for age in age_data]
+        return int_age_data
 
 
 def calculate_average(data):
     """
-    Calculate average of list of integers.
+    Calculates the average of a list of integers.
+
+    Parameters
+    data: The survey data from a club's survey results worksheet.
+
+    Returns
+    The average age as an integer.
     """
     print("Calculating average...")
     average = round(sum(data) / len(data))
@@ -61,7 +94,13 @@ def calculate_average(data):
 
 def get_employment_data(data):
     """
-    Get employment data from worksheet
+    Gets employment data from a club's survey results worksheet.
+
+    Parameters
+    data: The survey data from a club's survey results worksheet.
+
+    Returns
+    Employment data as a list of strings.
     """
     print("Getting employment data...")
     employment_data = data.col_values(3)[1:]
@@ -70,7 +109,17 @@ def get_employment_data(data):
 
 def calculate_percentage_employed(data):
     """
-    Calculate percentage employed, retired, student.
+    Calculates the percentage of members who are employed, retired 
+    or students, by counting the number of times each option was 
+    selected. Respondents were given three options to choose from - 
+    'employed', 'retired' or 'student'.
+
+    Parameters
+    data: The survey data from a club's survey results worksheet.
+
+    Returns
+    The percentage of respondents who are employed, the percentage
+    retired and the percentage who are students.
     """
     print("Calculating percentage employed...\n")
     employed = data.count('employed')
@@ -87,7 +136,13 @@ def calculate_percentage_employed(data):
 
 def get_goal_data(data):
     """
-    Get respondent main goal data from worksheet
+    Gets respondents' main goal data from a club's survey results worksheet.
+
+    Parameters
+    data: The survey data from a club's survey results worksheet.
+
+    Returns
+    The main goal data as a list of strings.
     """
     print("Getting main goal data...")
     goal_data = data.col_values(4)[1:]
@@ -96,7 +151,18 @@ def get_goal_data(data):
 
 def calculate_percentage_each_goal(data):
     """
-    Calculate percentage for each main goal.
+    Calculates the percentage of respondents who selected 
+    each of the main goal options by counting the number of times 
+    each option was selected. Respondents were given three
+    options to choose from - 'self-confidence', 'social' and 'public 
+    speaking'.
+
+    Parameters
+    data: The survey data from a club's survey results worksheet.
+
+    Returns
+    The percentage who chose public speaking, the percentage who 
+    chose self-confidence and the percentage who chose social.
     """
     print("Calculating main goal percentages...\n")
     confidence = data.count('self-confidence')
@@ -113,7 +179,15 @@ def calculate_percentage_each_goal(data):
 
 def get_satifaction_data(data):
     """
-    Get satisfaction with club experience data from worksheet
+    Gets satisfaction with club experience data from a club's 
+    survey results worksheet. Respondents were given two options to 
+    choose from - 'yes' and 'no'. 
+
+    Parameters
+    data: The survey data from a club's survey results worksheet.
+
+    Returns
+    The satisfaction data as a list of strings.
     """
     print("Getting satisfaction data...")
     satisfied_data = data.col_values(5)[1:]
@@ -122,7 +196,14 @@ def get_satifaction_data(data):
 
 def calculate_percentage_satisfied(data):
     """
-    Calculate percentage satisfied.
+    Calculates the percentage of respondents satisfied with their
+    club experience by counting the number who selected 'yes'.
+
+    Parameters
+    data: The survey data from a club's survey results worksheet.
+
+    Returns
+    The percentage of respondents who selected 'yes'.
     """
     print("Calculating percentage satisfied...\n")
     satisfied = data.count('yes')
@@ -133,7 +214,13 @@ def calculate_percentage_satisfied(data):
 
 def print_club_menu():
     """
-    Print club options menu.
+    Prints the club options menu to the terminal.
+
+    Parameters
+    This function does not take any parameters.
+
+    Returns
+    Returns 'None'.
     """
     print("\nPlease select a club.")
     print("1. Dublin Toastmasters")
@@ -142,7 +229,13 @@ def print_club_menu():
 
 def print_calc_menu():
     """
-    Prints options 1-6. 
+    Prints the calculation options to the terminal.
+
+    Parameters
+    This function does not take any parameters.
+
+    Returns
+    Returns 'None'.
     """
     print("Please choose an option.")
     print("1. Calculate average age of respondents.")
@@ -155,7 +248,14 @@ def print_calc_menu():
 
 def select_club():
     """
-    Collect user club selection input
+    This function calls the print_club_menu function, then collects and validates 
+    user input for selecting a club option. 
+
+    Parameters
+    This function does not take any parameters.
+
+    Returns
+    Returns an integer, either 1 or 2.
     """
     while True:
         try:
@@ -175,7 +275,15 @@ def select_club():
 
 def create_club_instance(selected_club_option):
     """
-    Create instance of club
+    Creates an instance of the Club class for the club selected by 
+    the user.
+
+    Parameters
+    selected_club_option: An integer representing the club
+    selected by the user.
+
+    Returns
+    Returns the survey worksheet data for that club as a list of lists.
     """
     if int(selected_club_option) == 1:
         dublin_club = Club('Dublin', 22, 'regular', 4, dublin_data)
@@ -191,7 +299,14 @@ def create_club_instance(selected_club_option):
 
 def select_calculation():
     """
-    Collect and validate user's calculation selection.
+    Calls the print_calc_menu function, then collects and validates user 
+    input when the user selects a calculation option.
+
+    Parameters
+    This function does not take any parameters.
+
+    Returns
+    Returns an integer representing the selected calculation.
     """
     while True:
         try:
@@ -209,21 +324,29 @@ def select_calculation():
             print(f"\nInvalid option. {e}\n")
 
 
-def run_calculation(calc_number, club):
+def run_calculation(calc_number, data):
     """
-    Run the selected calculation
+    Runs the selected calculation.
+
+    Parameters
+    calc_number: an integer representing the calculation selected
+    from the calculation menu.
+    data: The survey data from a club's survey results worksheet.
+
+    Returns
+    Returns 'None'.
     """
     if int(calc_number) == 1:
-        ages_list = get_age_data(club)
+        ages_list = get_age_data(data)
         calculate_average(ages_list)
     elif int(calc_number) == 2:
-        employment_data = get_employment_data(club)
+        employment_data = get_employment_data(data)
         calculate_percentage_employed(employment_data)
     elif int(calc_number) == 3:
-        goal_data = get_goal_data(club)
+        goal_data = get_goal_data(data)
         calculate_percentage_each_goal(goal_data)
     elif int(calc_number) == 4:
-        satisfied = get_satifaction_data(club)
+        satisfied = get_satifaction_data(data)
         calculate_percentage_satisfied(satisfied)
     elif int(calc_number) == 5:
         main()
@@ -234,12 +357,18 @@ def run_calculation(calc_number, club):
 
 def main():
     """
-    Main function called when user clicks 'Run Program'.
+    Main function called when user clicks 'Run Program' and on initial 
+    loading of program.
     """
     club_number = select_club()
     club_selection = create_club_instance(club_number)
-    calc_number = select_calculation()
-    run_calculation(calc_number, club_selection)
+    while True:
+        calc_number = select_calculation()
+        run_calculation(calc_number, club_selection)
+        if calc_number == 6:
+            return False  
+        else:
+            return True
 
 
 if __name__ == "__main__":
