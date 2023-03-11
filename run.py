@@ -30,7 +30,7 @@ class Club:
     name, number of members, type and number of meetings per month.
     """
     def __init__(self, club_name, num_members, club_type, 
-                 meetings_per_month, data):
+                 meetings_per_month, data, worksheet):
         """
         Class Parameters:
         club_name: The name of the club
@@ -44,6 +44,7 @@ class Club:
         self.club_type = club_type
         self.meetings_per_month = meetings_per_month
         self.data = data
+        self.worksheet = worksheet
 
 
     def club_description(self):
@@ -57,26 +58,72 @@ class Club:
         It returns this description as a string.
         """
         return f"{self.club_name} Toastmasters Club is a {self.club_type} club with {self.meetings_per_month} meetings a month. There are {self.num_members} members.\n"
-    
 
-def get_age_data(data):
+
+    def get_age_data(self):
         """
         This method gets the age data from a club's survey result 
         worksheet.
-        
+            
         Parameters
         data: The survey data from a club's survey results worksheet.
-
+            
         Returns
         It returns the ages as a list of integers.
         """
         print("Getting age data...")
-        age_data = data.col_values(2)[1:]
+        age_data = self.worksheet.col_values(2)[1:]
         int_age_data = [int(age) for age in age_data]
         return int_age_data
+    
+
+    def get_employment_data(self):
+        """
+        Gets employment data from a club's survey results worksheet.
+        
+        Parameters
+        data: The survey data from a club's survey results worksheet.
+        
+        Returns
+        Employment data as a list of strings.
+        """
+        print("Getting employment data...")
+        employment_data = self.worksheet.col_values(3)[1:]
+        return employment_data
 
 
-def calculate_average(data):
+    def get_goal_data(self):
+        """
+        Gets respondents' main goal data from a club's survey results worksheet.
+        Parameters
+        data: The survey data from a club's survey results worksheet.
+        
+        Returns
+        The main goal data as a list of strings.
+        """
+        print("Getting main goal data...")
+        goal_data = self.worksheet.col_values(4)[1:]
+        return goal_data
+
+
+    def get_satifaction_data(self):
+        """
+        Gets satisfaction with club experience data from a club's 
+        survey results worksheet. Respondents were given two options to 
+        choose from - 'yes' and 'no'. 
+        
+        Parameters
+        data: The survey data from a club's survey results worksheet.
+        
+        Returns
+        The satisfaction data as a list of strings.
+        """
+        print("Getting satisfaction data...")
+        satisfied_data = self.worksheet.col_values(5)[1:]
+        return satisfied_data
+
+
+def calculate_average(ages):
     """
     Calculates the average of a list of integers.
 
@@ -87,24 +134,9 @@ def calculate_average(data):
     The average age as an integer.
     """
     print("Calculating average...")
-    average = round(sum(data) / len(data))
+    average = round(sum(ages) / len(ages))
     print(f"Average age: {average}\n")
     return average
-
-
-def get_employment_data(data):
-    """
-    Gets employment data from a club's survey results worksheet.
-
-    Parameters
-    data: The survey data from a club's survey results worksheet.
-
-    Returns
-    Employment data as a list of strings.
-    """
-    print("Getting employment data...")
-    employment_data = data.col_values(3)[1:]
-    return employment_data
 
 
 def calculate_percentage_employed(data):
@@ -134,21 +166,6 @@ def calculate_percentage_employed(data):
     return f"{percent_employed}% are employed, {percent_student}% are students and {percent_retired}% are retired." 
 
 
-def get_goal_data(data):
-    """
-    Gets respondents' main goal data from a club's survey results worksheet.
-
-    Parameters
-    data: The survey data from a club's survey results worksheet.
-
-    Returns
-    The main goal data as a list of strings.
-    """
-    print("Getting main goal data...")
-    goal_data = data.col_values(4)[1:]
-    return goal_data
-
-
 def calculate_percentage_each_goal(data):
     """
     Calculates the percentage of respondents who selected 
@@ -175,23 +192,6 @@ def calculate_percentage_each_goal(data):
     print(f"Social: {percent_social}%")
     print(f"Public speaking: {percent_speaking}%\n")
     return f"{percent_speaking}% chose public speaking, {percent_confidence}% chose self-confidence and {percent_social}% chose social." 
-
-
-def get_satifaction_data(data):
-    """
-    Gets satisfaction with club experience data from a club's 
-    survey results worksheet. Respondents were given two options to 
-    choose from - 'yes' and 'no'. 
-
-    Parameters
-    data: The survey data from a club's survey results worksheet.
-
-    Returns
-    The satisfaction data as a list of strings.
-    """
-    print("Getting satisfaction data...")
-    satisfied_data = data.col_values(5)[1:]
-    return satisfied_data
 
 
 def calculate_percentage_satisfied(data):
@@ -286,12 +286,13 @@ def create_club_instance(selected_club_option):
     Returns the survey worksheet data for that club as a list of lists.
     """
     if int(selected_club_option) == 1:
-        dublin_club = Club('Dublin', 22, 'regular', 4, dublin_data)
-        print(dublin_club.club_description())
+        selection = dublin_club
+        print(selection.club_description())
+        print(selection.get_age_data())
         selected_club = dublin_worksheet
         return selected_club
     elif int(selected_club_option) == 2:
-        london_club = Club('London', 15, 'business', 2, london_data)
+        selection = london_club
         print(london_club.club_description())
         selected_club = london_worksheet
         return selected_club
@@ -324,7 +325,7 @@ def select_calculation():
             print(f"\nInvalid option. {e}\n")
 
 
-def run_calculation(calc_number, data):
+def run_calculation(calc_number, worksheet, club):
     """
     Runs the selected calculation.
 
@@ -337,16 +338,16 @@ def run_calculation(calc_number, data):
     Returns 'None'.
     """
     if int(calc_number) == 1:
-        ages_list = get_age_data(data)
+        ages_list = club.get_age_data()
         calculate_average(ages_list)
     elif int(calc_number) == 2:
-        employment_data = get_employment_data(data)
+        employment_data = club.get_employment_data()
         calculate_percentage_employed(employment_data)
     elif int(calc_number) == 3:
-        goal_data = get_goal_data(data)
+        goal_data = get_goal_data(worksheet)
         calculate_percentage_each_goal(goal_data)
     elif int(calc_number) == 4:
-        satisfied = get_satifaction_data(data)
+        satisfied = get_satifaction_data(worksheet)
         calculate_percentage_satisfied(satisfied)
     elif int(calc_number) == 5:
         main()
@@ -362,13 +363,21 @@ def main():
     """
     club_number = select_club()
     club_selection = create_club_instance(club_number)
+    if club_number == 1:
+        club = dublin_club
+    elif club_number == 2:
+        club = london_club
     while True:
         calc_number = select_calculation()
-        run_calculation(calc_number, club_selection)
+        run_calculation(calc_number, club_selection, club)
         if calc_number == 6:
             break
 
 
+dublin_club = Club('Dublin', 22, 'regular', 4, dublin_data, dublin_worksheet)
+london_club = Club('London', 15, 'business', 2, london_data, london_worksheet)
+
 if __name__ == "__main__":
     print("Welcome to Toastmasters Club Survey Analysis")
     main()
+
