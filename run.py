@@ -57,7 +57,7 @@ class Club:
         It returns this description as a string.
         """
         return f"{self.club_name} Toastmasters Club is a {self.club_type} club with {self.meetings_per_month} meetings a month. There are {self.num_members} members.\n"
-
+    
 
 def get_age_data(data):
         """
@@ -366,9 +366,7 @@ def main():
         calc_number = select_calculation()
         run_calculation(calc_number, club_selection)
         if calc_number == 6:
-            return False  
-        else:
-            return True
+            break
 
 
 if __name__ == "__main__":
