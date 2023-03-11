@@ -131,13 +131,22 @@ def calculate_percentage_satisfied(data):
     return percent_satisfied
 
 
+def print_club_menu():
+    """
+    Print club options menu.
+    """
+    print("\nPlease select a club.")
+    print("1. Dublin Toastmasters")
+    print("2. London Toastmasters\n")
+
+
 def select_club():
     """
     Collect user club selection input
     """
     while True:
         try:
-            print("\nPlease select a club.\n 1. Dublin Toastmasters\n 2. London Toastmasters\n")
+            print_club_menu()
             selected_club_option = input("Please enter a number here: \n")
 
             if int(selected_club_option) == 1:
@@ -215,7 +224,8 @@ def select_calculation(club):
         except TypeError as e:
             print(f"\nInvalid option. {e}\n")
 
-    print("Thank you for using this program. Click 'Run Program' to run it again.\n")
+    print("Thank you for using this program.")
+    print("Click 'Run Program' to run it again.\n")
     return False
 
 
