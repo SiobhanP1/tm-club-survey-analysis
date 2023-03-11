@@ -140,39 +140,6 @@ def print_club_menu():
     print("2. London Toastmasters\n")
 
 
-def select_club():
-    """
-    Collect user club selection input
-    """
-    while True:
-        try:
-            print_club_menu()
-            selected_club_option = input("Please enter a number here: \n")
-
-            if int(selected_club_option) == 1:
-                dublin_club = Club('Dublin', 22, 'regular', 4, dublin_data)
-                print(dublin_club.club_description())
-                selected_club = dublin_worksheet
-                return selected_club
-            elif int(selected_club_option) == 2:
-                london_club = Club('London', 15, 'business', 2, london_data)
-                print(london_club.club_description())
-                selected_club = london_worksheet
-                return selected_club
-            elif int(selected_club_option) != 1 and int(selected_club_option) != 2:
-                raise ValueError(
-                    f"You entered {selected_club_option}. Please enter 1 or 2."
-                )
-            else:
-                raise TypeError(
-                    f"You entered {selected_club_option}. Please enter a number."
-                )
-        except ValueError as e:
-            print(f"\nInvalid option. {e}\n")
-        except TypeError as e:
-            print(f"\nInvalid option. {e}\n")
-
-
 def print_calc_menu():
     """
     Prints options 1-6. 
@@ -184,6 +151,42 @@ def print_calc_menu():
     print("4. Calculate percentage satisfied with club experience.")
     print("5. Return to club menu.")
     print("6. Exit program.\n")
+
+
+def select_club():
+    """
+    Collect user club selection input
+    """
+    while True:
+        try:
+            print_club_menu()
+            selected_club_option = input("Please enter a number here: \n")
+            if int(selected_club_option) == 1 or int(selected_club_option) == 2:
+                return int(selected_club_option)
+            else:
+                raise ValueError(
+                    f"You entered {selected_club_option}. Please enter 1 or 2."
+                )
+        except ValueError as e:
+            print(f"\nInvalid option. {e}\n")
+        except TypeError as e:
+            print(f"\nInvalid option. {e}\n")
+
+
+def create_club_instance(selected_club_option):
+    """
+    Create instance of club
+    """
+    if int(selected_club_option) == 1:
+        dublin_club = Club('Dublin', 22, 'regular', 4, dublin_data)
+        print(dublin_club.club_description())
+        selected_club = dublin_worksheet
+        return selected_club
+    elif int(selected_club_option) == 2:
+        london_club = Club('London', 15, 'business', 2, london_data)
+        print(london_club.club_description())
+        selected_club = london_worksheet
+        return selected_club
 
 
 def select_calculation(club):
@@ -233,7 +236,8 @@ def main():
     """
     Main function called when user clicks 'Run Program'.
     """
-    club_selection = select_club()
+    club_number = select_club()
+    club_selection = create_club_instance(club_number)
     select_calculation(club_selection)
 
 
