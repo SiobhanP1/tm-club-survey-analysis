@@ -189,7 +189,7 @@ def create_club_instance(selected_club_option):
         return selected_club
 
 
-def select_calculation(club):
+def select_calculation():
     """
     Collect and validate user's calculation selection.
     """
@@ -197,39 +197,39 @@ def select_calculation(club):
         try:
             print_calc_menu()
             calc_selection = input("Please enter a number from 1 to 6 here: \n")
-
-            if int(calc_selection) == 1:
-                ages_list = get_age_data(club)
-                calculate_average(ages_list)
-            elif int(calc_selection) == 2:
-                employment_data = get_employment_data(club)
-                calculate_percentage_employed(employment_data)
-            elif int(calc_selection) == 3:
-                goal_data = get_goal_data(club)
-                calculate_percentage_each_goal(goal_data)
-            elif int(calc_selection) == 4:
-                satisfied = get_satifaction_data(club)
-                calculate_percentage_satisfied(satisfied)
-            elif int(calc_selection) == 5:
-                main()
-            elif int(calc_selection) == 6:
-                break
-            elif int(calc_selection) < 1 or int(calc_selection) > 6:
+            if int(calc_selection) in [1, 2, 3, 4, 5, 6]:
+                return int(calc_selection)
+            else:
                 raise ValueError(
                     f"You entered {calc_selection}. Please enter an integer from 1 to 6."
-                )
-            else:
-                raise TypeError(
-                    f"You entered {calc_selection}. Please enter a number from 1 to 6."
                 )
         except ValueError as e:
             print(f"\nInvalid option. {e}\n")
         except TypeError as e:
             print(f"\nInvalid option. {e}\n")
 
-    print("Thank you for using this program.")
-    print("Click 'Run Program' to run it again.\n")
-    return False
+
+def run_calculation(calc_number, club):
+    """
+    Run the selected calculation
+    """
+    if int(calc_number) == 1:
+        ages_list = get_age_data(club)
+        calculate_average(ages_list)
+    elif int(calc_number) == 2:
+        employment_data = get_employment_data(club)
+        calculate_percentage_employed(employment_data)
+    elif int(calc_number) == 3:
+        goal_data = get_goal_data(club)
+        calculate_percentage_each_goal(goal_data)
+    elif int(calc_number) == 4:
+        satisfied = get_satifaction_data(club)
+        calculate_percentage_satisfied(satisfied)
+    elif int(calc_number) == 5:
+        main()
+    elif int(calc_number) == 6:
+        print("Thank you for using this program.")
+        print("Click 'Run Program' to run it again.\n")
 
 
 def main():
@@ -238,7 +238,8 @@ def main():
     """
     club_number = select_club()
     club_selection = create_club_instance(club_number)
-    select_calculation(club_selection)
+    calc_number = select_calculation()
+    run_calculation(calc_number, club_selection)
 
 
 if __name__ == "__main__":
