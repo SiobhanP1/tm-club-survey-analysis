@@ -164,13 +164,26 @@ def select_club():
             print(f"\nInvalid option. {e}\n")
 
 
+def print_calc_menu():
+    """
+    Prints options 1-6. 
+    """
+    print("Please choose an option.")
+    print("1. Calculate average age of respondents.")
+    print("2. Calculate percentage employed.")
+    print("3. Calculate percentage having each main goal.") 
+    print("4. Calculate percentage satisfied with club experience.")
+    print("5. Return to club menu.")
+    print("6. Exit program.\n")
+
+
 def select_calculation(club):
     """
     Collect and validate user's calculation selection.
     """
     while True:
         try:
-            print("Please choose an option.\n 1. Calculate average age of respondents.\n 2. Calculate percentage employed.\n 3. Calculate percentage having each main goal.\n 4. Calculate percentage satisfied with club experience.\n 5. Return to club menu.\n 6. Exit program.\n")
+            print_calc_menu()
             calc_selection = input("Please enter a number from 1 to 6 here: \n")
 
             if int(calc_selection) == 1:
