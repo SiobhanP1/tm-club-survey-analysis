@@ -88,7 +88,8 @@ ADD FLOWCHART
 ## Testing
 
 ### Code Validation
-ADD VALIDATION INFO
+ADD VALIDATION RESULTS
+* Code was passed through the [Code Institute Python Linter](https://pep8ci.herokuapp.com/).
 
 ### Fixed Bugs
 ADD FIXED BUGS

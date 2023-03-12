@@ -37,7 +37,8 @@ class Club:
         num_members: The current number of members in the club
         club_type: The club type. Clubs can be 'regular' or 'business'.
         meetings_per_month: The number of club meetings every month
-        data: Survey input values from that club's survey result spreadsheet
+        data: List of values from survey result worksheet
+        worksheet: Worksheet containing survey result data
         """
         self.club_name = club_name
         self.num_members = num_members
@@ -56,9 +57,11 @@ class Club:
 
         It returns this description as a string.
         """
-        return f"{self.club_name} Toastmasters Club is a {self.club_type}"
-        f"club with {self.meetings_per_month} meetings a month. There are"
-        f"{self.num_members} members."
+        return (
+            f"{self.club_name} Toastmasters Club is a {self.club_type}"
+            f" club with {self.meetings_per_month} meetings a month. There are"
+            f" {self.num_members} members.\n"
+            )
 
     def get_age_data(self):
         """
@@ -66,7 +69,7 @@ class Club:
         worksheet.
 
         Parameters
-        data: The survey data from a club's survey results worksheet.
+        worksheet: Worksheet containing survey data.
 
         Returns
         It returns the ages as a list of integers.
@@ -81,7 +84,7 @@ class Club:
         Gets employment data from a club's survey results worksheet.
 
         Parameters
-        data: The survey data from a club's survey results worksheet.
+        worksheet: Worksheet containing survey data.
 
         Returns
         Employment data as a list of strings.
@@ -95,7 +98,7 @@ class Club:
         Gets respondents' main goal data from survey results worksheet.
 
         Parameters
-        data: The survey data from a club's survey results worksheet.
+        worksheet: Worksheet containing survey data.
 
         Returns
         The main goal data as a list of strings.
@@ -106,12 +109,12 @@ class Club:
 
     def get_satifaction_data(self):
         """
-        Gets satisfaction with club experience data from a club's
+        Gets 'satisfaction with club experience' data from a club's
         survey results worksheet. Respondents were given two options to
         choose from - 'yes' and 'no'.
 
         Parameters
-        data: The survey data from a club's survey results worksheet.
+        worksheet: Worksheet containing survey data.
 
         Returns
         The satisfaction data as a list of strings.
@@ -161,8 +164,10 @@ def calculate_percentage_employed(data):
     print(f"Percentage employed: {percent_employed}%")
     print(f"Percentage students: {percent_student}%")
     print(f"Percentage retired: {percent_retired}%\n")
-    return f"{percent_employed}% are employed, {percent_student}%"
-    f" are students and {percent_retired}% are retired." 
+    return (
+        f"{percent_employed}% are employed, {percent_student}%"
+        f" are students and {percent_retired}% are retired."
+    )
 
 
 def calculate_percentage_each_goal(data):
@@ -190,9 +195,11 @@ def calculate_percentage_each_goal(data):
     print(f"Self-confidence: {percent_confidence}%")
     print(f"Social: {percent_social}%")
     print(f"Public speaking: {percent_speaking}%\n")
-    return f"{percent_speaking}% chose public speaking, "
-    f"{percent_confidence}% chose self-confidence and "
-    f"{percent_social}% chose social." 
+    return (
+        f"{percent_speaking}% chose public speaking,"
+        f" {percent_confidence}% chose self-confidence and"
+        f" {percent_social}% chose social."
+        )
 
 
 def calculate_percentage_satisfied(data):
@@ -247,7 +254,7 @@ def print_calc_menu():
     print("6. Exit program.\n")
 
 
-def select_club():
+def validate_club_option():
     """
     This function calls the print_club_menu function, then collects and
     validates user input for selecting a club option.
@@ -259,20 +266,20 @@ def select_club():
     Returns an integer, either 1 or 2.
     """
     while True:
-        try:
+        try: 
             print_club_menu()
             selected_option = input("Please enter a number here: \n")
-            if int(selected_option) == 1 or int(selected_option) == 2:
+            if int(selected_option) in [1, 2]:
                 return int(selected_option)
             else:
                 raise ValueError(
                     f"You entered {selected_option}. Please enter 1 or 2."
-                )
+                    )
         except ValueError as e:
             print(f"\n{e}\n")
 
 
-def create_club_instance(selected_club_option):
+def select_club(selected_club_option):
     """
     Creates an instance of the Club class for the club selected by
     the user.
@@ -287,7 +294,6 @@ def create_club_instance(selected_club_option):
     if int(selected_club_option) == 1:
         selection = dublin_club
         print(selection.club_description())
-        print(selection.get_age_data())
         selected_club = dublin_worksheet
         return selected_club
     elif int(selected_club_option) == 2:
@@ -313,7 +319,7 @@ def select_calculation():
             print_calc_menu()
             calc_selection = input("Please enter a number from 1 to 6: \n")
             if int(calc_selection) in [1, 2, 3, 4, 5, 6]:
-                return int(calc_selection)
+                return (calc_selection)
             else:
                 raise ValueError(
                     f"You entered {calc_selection}. Please enter an integer "
@@ -359,8 +365,8 @@ def main():
     Main function called when user clicks 'Run Program' and on initial
     loading of program.
     """
-    club_number = select_club()
-    club_selection = create_club_instance(club_number)
+    club_number = validate_club_option()
+    club_selection = select_club(club_number)
     if club_number == 1:
         club = dublin_club
     elif club_number == 2:
@@ -368,7 +374,7 @@ def main():
     while True:
         calc_number = select_calculation()
         run_calculation(calc_number, club_selection, club)
-        if calc_number == 6:
+        if int(calc_number) == 6:
             break
 
 
