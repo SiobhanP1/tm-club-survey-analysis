@@ -17,17 +17,24 @@ INSERT IMAGES OF FINISHED PROGRAM
 
 ## Features
 
-INSERT FEATURE IMAGES
+DO NOT NEED IMAGES HERE
 
 ### Gets data from spreadsheets stored in Google Drive
 * The survey result data for each club is stored in its own worksheet.
 * The data is accessed using the Google Drive API. 
+* The spreadsheet can be viewed here: https://docs.google.com/spreadsheets/d/1XsYRec63Il1tKu0qwXapBjtjuYRhDiZtlyp6HprYF3U/edit?usp=sharing
 
 ### Club selection menu 
 * The user can select and view data for the club they are interested in.
+* The user has two options to choose from on the club menu.
+* The user selects an option by entering '1' or '2' and pressing 'Enter'.
+* Invalid input such as floats, strings or numbers other than 1 or 2 will cause an error message to be printed. The user will then be presented with the club menu again and reminded to select either 1 or 2.
 
 ### Calculation selection menu
 * The user can select the calculation to be performed.
+* The user has two options to choose from on the club menu.
+* The user selects an option by entering a number from 1 to 6 and pressing 'Enter'.
+* Invalid input such as floats, strings or numbers other than 1 or 2 will cause an error message to be printed. The user will then be presented with the calculation menu again and reminded to select a number from 1 to 6.
 
 ### Calculate average age
 * When the user selects 'Calculate age', the average is calculated and the result is displayed in the terminal.
@@ -53,9 +60,7 @@ INSERT FEATURE IMAGES
 
 ### Future Features
 
-ADD ADDITIONAL
-
-* Create a method within the Club class that calculates the percentage of members that participated in the survey. 
+* Create a method within the 'Club' class that calculates the percentage of members that participated in the survey. 
 
 ## Data Model
 
@@ -72,6 +77,11 @@ The Club class has the following attributes:
 
 #### 'Club' Class Methods
 * `club_description()`: This method returns a description of the club including its name, type, the number of members and the number of meetings per month.
+* `get_age_data()`: This method gets the age data from a club worksheet and returns it as a list of strings.
+* `get_employment_data()`: This method gets the employment data from a club worksheet and returns it as a list of strings.
+* `get_goal_data()`: This method gets the goal data from a club worksheet and returns it as a list of strings.
+* `get_satisfaction_data()`: This method gets the satisfaction data from a club worksheet and returns it as a list of strings. 
+
 
 ## Algorithm
 
@@ -90,6 +100,8 @@ ADD FLOWCHART
 ### Code Validation
 ADD VALIDATION RESULTS
 * Code was passed through the [Code Institute Python Linter](https://pep8ci.herokuapp.com/).
+
+### Test Cases
 
 ### Fixed Bugs
 ADD FIXED BUGS
