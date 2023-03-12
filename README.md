@@ -9,16 +9,13 @@
 
 * The live version can be accessed here: https://tm-club-survey-analysis.herokuapp.com/
 
-INSERT IMAGES OF FINISHED PROGRAM
+![Live version welcome message](docs/initial.png)
 
 ## User Stories
-* I am a Director at Toastmasters International and I want to know the main goals of members so that I can provided better resources.
-* I am a Director at Toastmasters ...
-
+* As a site user, I want to get survey data to learn more about club members.
+* As a site user, I want to analyse the survey data to gain useful insights into members and clubs.
 
 ## Features
-
-DO NOT NEED IMAGES HERE
 
 ### Gets data from spreadsheets stored in Google Drive
 * The survey result data for each club is stored in its own worksheet.
@@ -62,6 +59,7 @@ DO NOT NEED IMAGES HERE
 ### Future Features
 
 * Create a method within the 'Club' class that calculates the percentage of members that participated in the survey. 
+* Include a more user-friendly error message for invalid string or float input.
 
 ## Data Model
 
@@ -86,9 +84,12 @@ The Club class has the following attributes:
 
 ## Algorithm
 
-ADD FLOWCHART 
+The program algorithm is as laid out in the flowchart below.
+
+![flowchart](docs/flowchart.png)
 
 ## Technology
+
 * Heroku was used to deploy the program.
 * Google Sheets was used to store the survey data.
 * Google Drive API was used to facilitate access to the data in Google Sheets.
@@ -99,8 +100,8 @@ ADD FLOWCHART
 ## Testing
 
 ### Code Validation
-ADD VALIDATION RESULTS
-* Code was passed through the [Code Institute Python Linter](https://pep8ci.herokuapp.com/).
+
+* Code was passed through the [Code Institute Python Linter](https://pep8ci.herokuapp.com/) without any issues.
 
 ### Test Cases
 
@@ -120,11 +121,23 @@ ADD VALIDATION RESULTS
 13. Read the calculation menu. The user notices that they are asked to select an option. 
 13. Enter 6. The user is shown the 'Thank you for using this program' message. The user notices that they have the option to run the program again by clicking 'Run Program'.
 
+![Live version welcome message](docs/initial.png)
+![Invalid number input](docs/invalid_integer_input.png)
+![Invalid string input](docs/invalid_input_string.png)
+![Club option one selected](docs/club1_selected.png)
+![Calculation one selected](docs/ave_age.png)
+![Calculation two selected](docs/percentage_employed.png)
+![Calculation three selected](docs/main_goal.png)
+![Calculation four selected](docs/satisfaction.png)
+![Return to club menu selected](docs/return_club_menu.png)
+![Club option two selected](docs/club2_selected.png)
+![Exit program selected](docs/exit_program.png)
+
 ### Fixed Bugs
-ADD FIXED BUGS
+* When collecting age data from the spreadsheet, I initially treated that data as integers which caused an error as the age data was returned in a list of strings. Using int() around the data solved this.
 
 ### Remaining Bugs
-ADD REMAINING BUGS
+* When option 6 is selected, it sometimes prints the 'Thank you' message and then prints the calculation menu again without exiting. I did not have time to fix this. 
 
 ## Deployment
 

@@ -281,8 +281,8 @@ def validate_club_option():
 
 def select_club(selected_club_option):
     """
-    Creates an instance of the Club class for the club selected by
-    the user.
+    Prints a description of the selected club and returns the
+    worksheet containing survey data for that club.
 
     Parameters
     selected_club_option: An integer representing the club
@@ -360,6 +360,10 @@ def run_calculation(calc_number, worksheet, club):
         print("Click 'Run Program' to run it again.\n")
 
 
+dublin_club = Club('Dublin', 22, 'regular', 4, dublin_data, dublin_worksheet)
+london_club = Club('London', 15, 'business', 2, london_data, london_worksheet)
+
+
 def main():
     """
     Main function called when user clicks 'Run Program' and on initial
@@ -377,9 +381,6 @@ def main():
         if int(calc_number) == 6:
             break
 
-
-dublin_club = Club('Dublin', 22, 'regular', 4, dublin_data, dublin_worksheet)
-london_club = Club('London', 15, 'business', 2, london_data, london_worksheet)
 
 if __name__ == "__main__":
     print("Welcome to Toastmasters Club Survey Analysis")
